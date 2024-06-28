@@ -1,0 +1,56 @@
+
+.editor{
+    border: solid 2px gray;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.editor-header{
+    background-color: lightgray;
+    border: solid 2px gray;
+    border-bottom: none;
+    margin-top: 20px;
+    border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 5px;
+}
+.editor-header-left-item{
+    justify-content: left;
+}
+
+.editor-header-right-item{
+    justify-content: right;
+}
+
+.field{
+    margin: 5px;
+}
+.number-field{
+    width: 5%;
+}
+#loginout-area{
+    margin: 5px;
+}
+#drop-point-header{
+    border: solid 2px gray;
+    border-bottom: none;
+    padding: 5px;
+}
+#drop-point-box{
+    border: solid 2px gray;
+    max-height: 300px;
+}
+.note-editor{
+    border: solid 2px gray;
+    border-radius: 8px;
+}
+#drop-point-preset{
+    width:100px;
+}
+.drop-point{
+    padding: 5px;
+    
+}
