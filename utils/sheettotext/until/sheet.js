@@ -204,14 +204,23 @@ async function convertText() {
     for (let i = listDataType.length - 1; i >= 0; i--) {
         switch (listDataType[i].type) {
             case 'value':
+                if (!row[0][lettersToNumber(listDataType[i].col)]) {
+                    break;
+                }
                 insertTextToOutPut(row[0][lettersToNumber(listDataType[i].col)], listDataType[i].index);
                 break;
             case 'divider':
+                if (!row[0][lettersToNumber(listDataType[i].col)]) {
+                    break;
+                }
                 let data = row[0][lettersToNumber(listDataType[i].col)];
                 insertTextToOutPut(valueSeperator(data, listDataType[i].separator, listDataType[i].location), listDataType[i].index);
                 break;
             case 'replace':
                 //console.log('in index:' + i);
+                if (!row[0][lettersToNumber(listDataType[i].col)]) {
+                    break;
+                }
                 let text = await replaceConvertion(
                     row[0][lettersToNumber(listDataType[i].col)],
                     listDataType[i].separator,
@@ -220,14 +229,24 @@ async function convertText() {
                 );
                 insertTextToOutPut(text, listDataType[i].index);
                 break;
+            case 'sheettitle':
+                let title = getSheetTitle();
+                if (title) {
+                    insertTextToOutPut(title, listDataType[i].index);
+                }
+                break;
             default:
                 break;
         }
     }
 }
 
-function a() {
-    insertTextToOutPut('siu', '17');
+function getSheetTitle() {
+    let title = document.getElementById('sheetName').value;
+    if (title) {
+        return title;
+    }
+
 }
 
 function valueSeperator(value, separator, index) {
@@ -273,6 +292,7 @@ function replaceConvertion(value, separator, target, useZeroRemover) {
 function initializeTest() {
     let array = [
         new dataPoint(12, 'B', 'value'),
+        new sheetNameDataPoint(18, 'sheettitle'),
         new replaceDataPoint(30, 'C', 'replace', '.', 'tr', true),
         new dataPoint(46, 'E', 'value'),
         new dataPoint(63, 'D', 'value'),
@@ -311,5 +331,10 @@ class replaceDataPoint extends dataPoint {
         this.separator = separator;
         this.target = target;
         this.useZeroRemover = useZeroRemover;
+    }
+}
+class sheetNameDataPoint extends dataPoint{
+    constructor(index, type){
+        super(index, undefined, type);
     }
 }
