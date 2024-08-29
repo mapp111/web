@@ -9,11 +9,18 @@ let spreadsheet;
 let sheet;
 let retryRequest = 5;
 
+document.getElementById("get-link-image-drive").addEventListener("click", getlink);
+
 document.getElementById("getFileButton").addEventListener("click", getSpreadsheetData);
 document.getElementById("clearUrl").addEventListener("click", clearUrl);
 document.getElementById('authorize_button').style.visibility = 'hidden';
 document.getElementById('signout_button').style.visibility = 'hidden';
 document.getElementById("convert").addEventListener("click", convertText);
+document.getElementById("convert-n-copy").addEventListener("click", convertAndCopy);
+
+function getlink(){
+    console.log(typeof(gapi));
+}
 
 //setup
 function gapiLoaded() {
@@ -239,6 +246,15 @@ async function convertText() {
                 break;
         }
     }
+    let convertNotificationCheckbox = localStorage.getItem("is-convert-alert-checked");
+    if(convertNotificationCheckbox === true || convertNotificationCheckbox ==="true"){
+        alert("Convert Completed!");
+    }
+}
+
+async function convertAndCopy(){
+    await convertText();
+    addOutputToClipboard();
 }
 
 function getSheetTitle() {
@@ -289,6 +305,8 @@ function replaceConvertion(value, separator, target, useZeroRemover) {
 
 }
 
+//prebuilt parameter for testing
+
 function initializeTest() {
     let array = [
         new dataPoint(12, 'B', 'value'),
@@ -310,6 +328,8 @@ function initializeTest() {
     ]
     return array;
 }
+
+//Datatype Class
 
 class dataPoint {
     constructor(index, col, type) {

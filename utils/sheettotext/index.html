@@ -32,7 +32,7 @@
             <input id="urlFile" type="text" placeholder="Enter here">
             <button id="getFileButton">Get</button>
             <button id="clearUrl">Clear</button>
-            <p id="status">Waiting...</p>
+            <!-- <p id="status">Waiting...</p> -->
             <p>Type sheet url in here! If the sheet is in Private please Login/Authorize</p>
         </div>
         <div class="container">
@@ -58,8 +58,12 @@
                 <span class="editor-header-right-item">
                     Index:
                     <input id="input-index-number" class="number-field" type="number" value="0" min="0" max="17">
-                    <button id="goToIndex">Where is my text cursor?</button>
                     <button id="convert">Convert</button>
+                    <button id="convert-n-copy">Convert and Copy</button>
+                    <input id="convert-notification-checkbox" type="checkbox" checked>
+                    <label for="convert-notification-checkbox">
+                        Alert when completed
+                    </label>
                 </span>
             </div>
             <div class="editor overflow-y-auto">
@@ -72,7 +76,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h3>Drop-point</h3>
+                    <h3>Drop-point (WIP)</h3>
                     <div id="drop-point-header">
                         Preset:
                         <select id="drop-point-preset">
@@ -129,7 +133,56 @@
                 </div>
             </div>
         </div>
+        <div class="container" hidden>
+            <input id="get-image-toogle" type="checkbox" name="get-image-toogle" checked>
+            <label for="get-image-toogle">
+                <h3>Get Google Image (Only support Google Drive)</h3>
+            </label>
+            <br>
+            <div id="get-image-body" class="container">
+                <span>Col:</span>
+                <input type="text" id="get-image-input-col" value="F">
+                <button id="get-link-image-drive">Get</button>
+                <br>
+                <h4 style="display: inline;">File list:</h4>
+                <button id="copy-downloaded-image">Copy</button>
+                <ol class="file-list">
+                    <li>
+                        <span class="item-image-download-content">image-a.jpg</span>
+                        <span class="item-image-download-status-downloading">Downloading...</span>
+                    </li>
+                    <li>
+                        <span class="item-image-download-content">image-b.jpg</span>
+                        <span class="item-image-download-status-completed">Completed</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
     </div>
+
+
+    <button type="button" class="btn btn-primary" id="liveToastBtn" hidden>Show live toast</button>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div id="liveToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script src="until/sheet.js"></script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>

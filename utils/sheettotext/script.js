@@ -5,15 +5,76 @@ const quillNote = new Quill('#note-editor');
 
 
 document.getElementById("copyOutput").addEventListener("click", addOutputToClipboard);
-document.getElementById("goToIndex").addEventListener("click", goToIndex(quillInput));
 document.getElementById("input-index-number").addEventListener('input', setTextCursor(quillInput));
 //document.getElementById("input-editor-header").addEventListener('click', focusEditor(quillInput));
+
+document.getElementById("get-image-toogle").addEventListener('change', hideGetImage);
+document.getElementById("get-image-toogle").onload = hideGetImage();
+document.getElementById("convert-notification-checkbox").onload = checkConvertAlert();
+document.getElementById("convert-notification-checkbox").addEventListener('change', changeConvertAlert);
+document.getElementById("input-editor").onload = loadInput();
+document.getElementById("note-editor").onload = loadNote();
+
+function checkConvertAlert(){
+    let check = localStorage.getItem("is-convert-alert-checked");
+    let checkbox = document.getElementById("convert-notification-checkbox");
+    if(check === "false" || check === false){
+        checkbox.checked = false;
+    }else{
+        checkbox.checked = true;
+    }
+}
+function changeConvertAlert(){
+    let checkbox = document.getElementById("convert-notification-checkbox").checked;
+    localStorage.setItem("is-convert-alert-checked",checkbox);
+}
+
+function hideGetImage(){
+    let toogle = document.getElementById('get-image-toogle');
+    let isToogleBefore = localStorage.getItem("get-google-image");
+    if(isToogleBefore === true){
+        toogle.checked = true;
+    }else if(isToogleBefore === false){
+        toogle.checked = false;
+    }
+
+    let body = document.getElementById("get-image-body");
+    if(toogle.checked){
+        body.hidden = false;
+        localStorage.setItem("get-google-image",true);
+    }else{
+        body.hidden = true;
+        localStorage.setItem("get-google-image",false);
+    }
+}
+
+quillNote.on('text-change', () => {
+    localStorage.setItem('note-data', quillNote.getText());
+});
+
+function loadNote(){
+    let data = localStorage.getItem('note-data');
+    if (data != null){
+        quillNote.setText(data);
+    }
+}
+
+function loadInput(){
+    let data = localStorage.getItem('input-data');
+    if (data != null){
+        quillInput.setText(data);
+    }
+}
+
+quillInput.on('text-change', () => {
+    localStorage.setItem('input-data', quillInput.getText());
+});
 
 //Set index after change text cursor
 quillInput.on('selection-change', (range, oldRange, source) => {
     if (range) {
         if (range.length == 0) {
-            setIndexCounter(range.index)
+            setIndexCounter(range.index);
         }
     }
 });
@@ -56,11 +117,12 @@ function addOutputToClipboard() {
     navigator.clipboard.writeText(text);
 }
 
-function goToIndex(editor) {
-    var bounds = editor.selection.getBounds(
-        document.getElementById("input-index-number").value,0
-    );
-    if (bounds) {
-        editor.scrollRectIntoView(bounds);
-    }
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
 }

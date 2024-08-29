@@ -46,6 +46,7 @@
 .note-editor{
     border: solid 2px gray;
     border-radius: 8px;
+    max-height: 300px;
 }
 #drop-point-preset{
     width:100px;
@@ -53,4 +54,15 @@
 .drop-point{
     padding: 5px;
     
+}
+.file-list{
+    list-style-type: inherit;
+}
+.item-image-download-status-downloading{
+    font-weight: bold;
+    color:blue;
+}
+.item-image-download-status-completed{
+    font-weight: bold;
+    color: green;
 }
