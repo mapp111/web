@@ -15,7 +15,7 @@ document.getElementById("getFileButton").addEventListener("click", getSpreadshee
 document.getElementById("clearUrl").addEventListener("click", clearUrl);
 document.getElementById('authorize_button').style.visibility = 'hidden';
 document.getElementById('signout_button').style.visibility = 'hidden';
-document.getElementById("convert").addEventListener("click", convertText);
+document.getElementById("convert").addEventListener("click", convertOnly);
 document.getElementById("convert-n-copy").addEventListener("click", convertAndCopy);
 
 function getlink(){
@@ -246,8 +246,12 @@ async function convertText() {
                 break;
         }
     }
+}
+
+async function convertOnly(){
+    await convertText();
     let convertNotificationCheckbox = localStorage.getItem("is-convert-alert-checked");
-    if(convertNotificationCheckbox === true || convertNotificationCheckbox ==="true"){
+    if(convertNotificationCheckbox === true || convertNotificationCheckbox ==="true" || convertNotificationCheckbox === "undefined"){
         alert("Convert Completed!");
     }
 }
@@ -255,6 +259,10 @@ async function convertText() {
 async function convertAndCopy(){
     await convertText();
     addOutputToClipboard();
+    let convertNotificationCheckbox = localStorage.getItem("is-convert-alert-checked");
+    if(convertNotificationCheckbox === true || convertNotificationCheckbox ==="true" || convertNotificationCheckbox === "undefined"){
+        alert("Convert Completed!");
+    }
 }
 
 function getSheetTitle() {
